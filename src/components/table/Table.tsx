@@ -113,7 +113,7 @@ const Table: FC<TableProps> = ({
   });
 
   return (
-    <section className="flex flex-col w-full gap-6 rounded-md">
+    <section className="flex flex-col w-full gap-4 rounded-md">
       <menu
         className={`${
           showFilter ? 'flex' : 'hidden'
@@ -153,7 +153,7 @@ const Table: FC<TableProps> = ({
           )}
         </menu>
       </menu>
-      <section className="flex flex-col w-full mx-auto mt-2">
+      <section className="flex flex-col w-full mx-auto">
         <div className="-mx-4 -my-1 overflow-x-auto sm:-mx-6 lg:-mx-1">
           <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-1">
             <span

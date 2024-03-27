@@ -1,5 +1,5 @@
 import { Controller, FieldValues, useForm } from 'react-hook-form';
-import Loader from '../../components/Loader';
+import Loader from '../../components/inputs/Loader';
 import Button from '../../components/inputs/Button';
 import Input from '../../components/inputs/Input';
 import validateInputs from '../../utils/validations';

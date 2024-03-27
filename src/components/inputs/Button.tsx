@@ -61,7 +61,7 @@ const Button: FC<ButtonProps> = ({
         'bg-red-600 border-none text-white hover:bg-red-600 hover:text-white shadow-sm'
       } ${
         !styled &&
-        '!bg-transparent hover:underline hover:bg-transparent border-none hover:!text-black hover:scale-[1.00] text-[13px] !px-0'
+        '!bg-transparent hover:bg-transparent border-none hover:!text-black hover:scale-[1.00] text-[13px] !px-0'
       } ${className}`}
     >
       {value}

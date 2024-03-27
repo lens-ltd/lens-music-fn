@@ -6,7 +6,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import { useEffect, useState } from 'react';
 import { useLoginMutation } from '../../state/apiSlice';
 import { toast } from 'react-toastify';
-import Loader from '../../components/Loader';
+import Loader from '../../components/inputs/Loader';
 import { AppDispatch } from '../../state/store';
 import { useDispatch } from 'react-redux';
 import { setToken } from '../../state/features/authSlice';
