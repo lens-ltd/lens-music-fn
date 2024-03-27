@@ -1,10 +1,10 @@
-import { FC, FormEventHandler } from 'react';
+import { FC, MouseEventHandler } from 'react';
 import { Link, To } from 'react-router-dom';
 
 interface ButtonProps {
   route?: To;
   value: string | JSX.Element;
-  onClick?: FormEventHandler<HTMLAnchorElement>;
+  onClick?: MouseEventHandler<HTMLAnchorElement>;
   type?: 'submit' | 'button' | 'reset';
   disabled?: boolean;
   primary?: boolean;
@@ -17,7 +17,7 @@ interface ButtonProps {
 const Button: FC<ButtonProps> = ({
   route = '#',
   onClick,
-  disabled,
+  disabled = false,
   value,
   submit,
   primary,
@@ -47,7 +47,7 @@ const Button: FC<ButtonProps> = ({
   return (
     <Link
       to={route}
-      onChange={(e) => {
+      onClick={(e) => {
         if (disabled) {
           e.preventDefault();
           return;
