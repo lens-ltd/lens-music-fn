@@ -6,11 +6,12 @@ import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import { useEffect, useState } from 'react';
 import { useLoginMutation } from '../../state/apiSlice';
 import { toast } from 'react-toastify';
-import Loader from '../../components/Loader';
+import Loader from '../../components/inputs/Loader';
 import { AppDispatch } from '../../state/store';
 import { useDispatch } from 'react-redux';
 import { setToken } from '../../state/features/authSlice';
 import { setUser } from '../../state/features/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   // REACT HOOK FORM
@@ -36,6 +37,9 @@ const Login = () => {
   const dispatch: AppDispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
 
+  // NAVIGATION 
+  const navigate = useNavigate();
+
   // HANDLE FORM SUBMISSION
   const onSubmit = (data: FieldValues) => {
     login({
@@ -56,15 +60,9 @@ const Login = () => {
       toast.success('Login successful. Redirecting...');
       dispatch(setToken(loginData?.data?.token));
       dispatch(setUser(loginData?.data?.user));
+      navigate('/dashboard');
     }
-  }, [
-    loginData,
-    loginError,
-    loginIsLoading,
-    loginIsError,
-    loginIsSuccess,
-    dispatch,
-  ]);
+  }, [loginData, loginError, loginIsLoading, loginIsError, loginIsSuccess, dispatch, navigate]);
 
   return (
     <main className="h-screen flex flex-col items-center justify-center gap-5 w-full bg-background">

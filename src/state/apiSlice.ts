@@ -21,6 +21,7 @@ export const apiSlice = createApi({
   }),
   endpoints: (builder) => {
     return {
+      // LOGIN
       login: builder.mutation({
         query: ({ email, password }) => ({
           url: '/auth/login',
@@ -31,6 +32,8 @@ export const apiSlice = createApi({
           },
         }),
       }),
+
+      // SIGNUP
       signup: builder.mutation({
         query: ({ email, name, phone, password }) => ({
           url: '/auth/signup',
@@ -43,9 +46,30 @@ export const apiSlice = createApi({
           },
         }),
       }),
+
+      // LIST ALL ARTISTS
+      listArtists: builder.query({
+        query: ({ size, page }) => `/artists?size=${size}&page=${page}`,
+      }),
+
+      // LIST LABELS
+      listLabels: builder.query({
+        query: ({ size, page }) => `/labels?size=${size}&page=${page}`,
+      }),
+
+      // CREATE ARTIST
+      createArtist: builder.mutation({
+        query: ({ formData }) => ({
+          url: '/artists',
+          method: 'POST',
+          body: formData,
+          formData: true,
+        }),
+      }),
     };
   },
 });
 
-export const { useLoginMutation, useSignupMutation } = apiSlice;
+export const { useLoginMutation, useSignupMutation, useLazyListArtistsQuery, useLazyListLabelsQuery, useCreateArtistMutation } =
+  apiSlice;
 export default apiSlice;
