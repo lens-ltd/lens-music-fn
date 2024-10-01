@@ -85,6 +85,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         return (
           <label className="flex w-fit items-center gap-2 text-[13px]">
             <Checkbox
+            className='!text-white'
               onCheckedChange={
                 onChange as ((checked: CheckedState) => void) | undefined
               }

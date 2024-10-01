@@ -1,18 +1,12 @@
+import store from 'store';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-export interface ResponseErrorType {
-  status: number;
-  data: {
-    message: string;
-  };
-}
 
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:8080/api',
     prepareHeaders: (headers) => {
-      const token = localStorage.getItem('token');
+      const token = store.get('token');
       if (token) {
         headers.set('authorization', `Bearer ${token}`);
       }
@@ -70,6 +64,11 @@ export const apiSlice = createApi({
   },
 });
 
-export const { useLoginMutation, useSignupMutation, useLazyListArtistsQuery, useLazyListLabelsQuery, useCreateArtistMutation } =
-  apiSlice;
+export const {
+  useLoginMutation,
+  useSignupMutation,
+  useLazyListArtistsQuery,
+  useLazyListLabelsQuery,
+  useCreateArtistMutation,
+} = apiSlice;
 export default apiSlice;

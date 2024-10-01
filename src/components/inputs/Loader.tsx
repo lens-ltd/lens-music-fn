@@ -10,7 +10,7 @@ const Loader: FC<LoaderProps> = ({ primary, className }) => {
     <figure
       role="status"
       className={`loader border-[1.5px] w-[20px] ${
-        primary ? 'border-white' : 'border-black'
+        primary ? 'border-black' : 'border-white'
       } hover:border-white ${className}`}
     ></figure>
   );

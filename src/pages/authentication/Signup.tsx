@@ -2,7 +2,7 @@ import { Controller, FieldValues, useForm } from 'react-hook-form';
 import Loader from '../../components/inputs/Loader';
 import Button from '../../components/inputs/Button';
 import Input from '../../components/inputs/Input';
-import validateInputs from '../../utils/validations';
+import { validateInputs } from '../../utils/validations.helper';
 import { useEffect, useState } from 'react';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import { useSignupMutation } from '../../state/apiSlice';
@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../state/store';
 import { setUser } from '../../state/features/userSlice';
 import { setToken } from '../../state/features/authSlice';
+import { ErrorResponse } from 'react-router-dom';
 
 const Signup = () => {
   // REACT HOOK FORM
@@ -51,11 +52,10 @@ const Signup = () => {
   // HANDLE SIGNUP RESPONSE
   useEffect(() => {
     if (signupIsError) {
-      if (signupError?.status === 500) {
-        toast.error('Could not signup. Please try again later.');
-      } else {
-        toast.error(signupError?.data?.message);
-      }
+      const errorResponse =
+        (signupError as ErrorResponse)?.data?.message ||
+        'An error occurred while signing up. Please try again later.';
+      toast.error(errorResponse);
     } else if (signupIsSuccess) {
       toast.success('Account created successfully. Login to continue...');
       dispatch(setUser(signupData?.data?.user));
@@ -78,7 +78,9 @@ const Signup = () => {
       >
         <section className="flex flex-col gap-1 w-full items-center justify-center my-4">
           <h2 className="font-bold uppercase text-xl">Lens Music</h2>
-          <h1 className="font-semibold uppercase text-lg text-center">Login</h1>
+          <h1 className="font-semibold uppercase text-lg text-center">
+            Signup
+          </h1>
         </section>
         <menu className="w-full flex items-start gap-6">
           <Controller
@@ -193,6 +195,7 @@ const Signup = () => {
                       e.preventDefault();
                       setShowPassword(!showPassword);
                     }}
+                    {...field}
                     onChange={(e) => {
                       field.onChange(e);
                       if (e.target.value === watch('confirm_password')) {
@@ -249,7 +252,7 @@ const Signup = () => {
           </Button>
           <p className="text-center flex items-center gap-2 text-[15px]">
             Already have an account?{' '}
-            <Button styled={false} className="!text-[15px]" route="/auth/login">
+            <Button styled={false} className="underline" route="/auth/login">
               Login here
             </Button>
           </p>

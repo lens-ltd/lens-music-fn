@@ -1,5 +1,5 @@
 import { Controller, FieldValues, useForm } from 'react-hook-form';
-import validateInputs from '../../utils/validations';
+import { validateInputs } from '../../utils/validations.helper';
 import Input from '../../components/inputs/Input';
 import Button from '../../components/inputs/Button';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
@@ -11,7 +11,7 @@ import { AppDispatch } from '../../state/store';
 import { useDispatch } from 'react-redux';
 import { setToken } from '../../state/features/authSlice';
 import { setUser } from '../../state/features/userSlice';
-import { useNavigate } from 'react-router-dom';
+import { ErrorResponse, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   // REACT HOOK FORM
@@ -51,23 +51,30 @@ const Login = () => {
   // HANDLE LOGIN RESPONSE
   useEffect(() => {
     if (loginIsError) {
-      if (loginError?.status === 500) {
-        toast.error('Could not login. Please try again later.');
-      } else {
-        toast.error(loginError?.data?.message);
-      }
+      const errorResponse =
+        (loginError as ErrorResponse)?.data?.message ||
+        'An error occurred while logging in. Please try again later.';
+      toast.error(errorResponse);
     } else if (loginIsSuccess) {
       toast.success('Login successful. Redirecting...');
       dispatch(setToken(loginData?.data?.token));
       dispatch(setUser(loginData?.data?.user));
       navigate('/dashboard');
     }
-  }, [loginData, loginError, loginIsLoading, loginIsError, loginIsSuccess, dispatch, navigate]);
+  }, [
+    loginData,
+    loginError,
+    loginIsLoading,
+    loginIsError,
+    loginIsSuccess,
+    dispatch,
+    navigate,
+  ]);
 
   return (
-    <main className="h-screen flex flex-col items-center justify-center gap-5 w-full bg-background">
+    <main className="h-[100vh] max-h-screen overflow-clip flex flex-col items-center justify-center gap-5 w-full bg-background">
       <form
-        className="flex flex-col gap-5 w-full max-w-[30%] p-6 rounded-md shadow-lg bg-white"
+        className="flex flex-col gap-5 w-full max-w-[30%] p-7 rounded-md shadow-lg bg-white"
         onSubmit={handleSubmit(onSubmit)}
       >
         <section className="flex flex-col gap-1 w-full items-center justify-center my-4">
@@ -129,12 +136,12 @@ const Login = () => {
             label="Keep me logged in"
             type="checkbox"
             onChange={(e) => {
-              return e.target.checked;
+              return e;
             }}
           />
           <Button
             styled={false}
-            className="!text-[13px]"
+            className="!text-[13px] underline"
           >Forgot password?</Button>
         </menu>
         <menu className="flex flex-col items-center gap-3 w-full">
@@ -147,8 +154,8 @@ const Login = () => {
             Don't have an account?{' '}
             <Button
               styled={false}
-              className="!text-[15px]"
               route="/auth/signup"
+              className='underline'
             >Signup here</Button>
           </p>
         </menu>

@@ -74,86 +74,25 @@ const UserDashboard = () => {
     },
   ];
 
-  const artistsColumns = [
-    {
-      header: 'Name',
-      accessorKey: 'name',
-    },
-    {
-      header: 'Label',
-      accessorKey: 'label',
-    },
-    {
-      header: 'Action',
-      accessorKey: 'action',
-      cell: ({ row }) => {
-        return (
-          <menu className="flex items-center gap-3">
-            <Button styled={false} route={`/artists/${row?.original?.id}`}>
-              {' '}
-              <menu className="flex items-center gap-2 transition-all duration-200 hover:!no-underline">
-                View more
-                <FontAwesomeIcon icon={faArrowRight} />
-              </menu>
-            </Button>
-          </menu>
-        );
-      },
-    },
-  ];
-
   return (
     <UserLayout>
       <main className="flex flex-col gap-6 w-[95%] mx-auto p-4 px-6">
         <section className="flex flex-col gap-6">
-          {artistsList?.length > 0 ? (
-            <section className={`flex flex-col gap-6`}>
-              <menu className="flex items-center gap-3 justify-between">
-                <h1 className="font-semibold uppercase text-lg">
-                  Recent artists
-                </h1>
-                <Button>
-                  {' '}
-                  <menu className="flex items-center gap-2">
-                    View all artists
-                    <FontAwesomeIcon icon={faArrowRight} />
-                  </menu>
-                </Button>
-              </menu>
-              <Table
-                data={artistsList?.map(
-                  (artist: {
-                    name: string;
-                    genre: { name: string };
-                    label: { name: string };
-                  }) => {
-                    return {
-                      ...artist,
-                      name: artist?.name,
-                      genre: artist?.genre?.name,
-                      label: artist?.label?.name,
-                    };
-                  }
-                )}
-                columns={artistsColumns}
-                showPagination={false}
-              />
-            </section>
-          ) : (
-            <section className="flex flex-col gap-6 w-full items-center justify-center">
-              <menu className="flex items-center gap-6">
-                <Button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    dispatch(setAddArtistModal(true));
-                  }}
-                >
-                  Add artist
-                </Button>
-                <Button><Loader /></Button>
-              </menu>
-            </section>
-          )}
+          <section className="flex flex-col gap-6 w-full items-center justify-center">
+            <menu className="flex items-center gap-6">
+              <Button
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(setAddArtistModal(true));
+                }}
+              >
+                Add artist
+              </Button>
+              <Button>
+                <Loader />
+              </Button>
+            </menu>
+          </section>
         </section>
         <section className="flex flex-col gap-5 h-[65vh]">
           <menu className="flex w-full items-center gap-3 justify-between">
