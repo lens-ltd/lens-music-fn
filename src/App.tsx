@@ -9,7 +9,7 @@ const App = () => {
         closeOnClick
         hideProgressBar
         autoClose={1500}
-        position="top-center"
+        position="top-right"
       />
       <Router />
     </>

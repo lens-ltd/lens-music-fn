@@ -1,9 +1,11 @@
-import { FC, MouseEventHandler } from 'react';
-import { Link, To } from 'react-router-dom';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FC, MouseEventHandler, ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
 interface ButtonProps {
-  route?: To;
-  value: string | JSX.Element;
+  route?: string;
+  children: ReactNode;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
   type?: 'submit' | 'button' | 'reset';
   disabled?: boolean;
@@ -12,34 +14,44 @@ interface ButtonProps {
   className?: string;
   submit?: boolean;
   danger?: boolean;
+  icon?: IconProp;
 }
 
 const Button: FC<ButtonProps> = ({
   route = '#',
+  children,
   onClick,
+  type = null,
   disabled = false,
-  value,
-  submit,
-  primary,
-  danger,
+  primary = false,
   styled = true,
   className,
+  submit = false,
+  danger = false,
+  icon = undefined,
 }) => {
-  if (submit) {
+  if (submit || type === 'submit') {
     return (
       <button
-        className={`border-2 flex items-center justify-center text-center text-[15px] border-black rounded-md py-[6px] px-4 hover:bg-black hover:text-white transition-all hover:scale-[1.02] ${
-          primary && 'bg-black text-white'
-        } ${
-          danger &&
-          'bg-red-600 border-none text-white hover:bg-red-600 hover:text-white shadow-sm'
-        } ${
+        type={type || 'submit'}
+        onClick={onClick as MouseEventHandler<HTMLButtonElement> | undefined}
+        className={`py-[6px] flex items-center justify-center text-center border-[1px] border-primary px-4 rounded-md text-[14px] text-primary bg-white hover:bg-primary hover:text-white cursor-pointer ease-in-out duration-400 hover:scale-[1.005] max-[800px]:!text-lg max-md:!py-2 ${
           !styled &&
-          '!bg-transparent hover:underline hover:bg-transparent border-none hover:!text-black hover:scale-[1.00] text-[13px] !px-0'
-        } ${className}`}
-        type="submit"
+          '!bg-transparent !shadow-none !text-primary hover:!scale-[1.005] !py-0 !px-0 !border-none hover:!bg-transparent hover:!text-primary'
+        } ${className} ${
+          primary &&
+          '!bg-primary !text-white hover:!bg-primary hover:!text-white !shadow-sm'
+        }
+        ${
+          danger &&
+          '!bg-red-600 !border-none !text-white hover:!bg-red-600 hover:!text-white !shadow-sm'
+        } ${
+          disabled &&
+          '!bg-secondary !shadow-none hover:!scale-[1] !cursor-default hover:!bg-secondary hover:text-opacity-80 !duration-0 text-white text-opacity-80 !border-none text-center transition-all'
+        }`}
+        disabled={disabled}
       >
-        {value}
+        {children}
       </button>
     );
   }
@@ -54,17 +66,29 @@ const Button: FC<ButtonProps> = ({
         }
         onClick && onClick(e);
       }}
-      className={`border-2 flex items-center justify-center text-center text-[15px] border-black rounded-md py-[6px] px-4 hover:bg-black hover:text-white transition-all hover:scale-[1.02] ${
-        primary && 'bg-black text-white'
-      } ${
-        danger &&
-        'bg-red-600 border-none text-white hover:bg-red-600 hover:text-white shadow-sm'
-      } ${
+      className={`py-[6px] text-center border-[1px] border-primary px-4 rounded-md text-[14px] text-primary bg-white hover:bg-primary hover:text-white cursor-pointer ease-in-out duration-400 hover:scale-[1.005] max-[800px]:!text-lg max-md:!py-2 ${
         !styled &&
-        '!bg-transparent hover:bg-transparent border-none hover:!text-black hover:scale-[1.00] text-[13px] !px-0'
-      } ${className}`}
+        '!bg-transparent !shadow-none !text-primary hover:!scale-[1.005] !py-0 !px-0 !border-none hover:!bg-transparent hover:!text-primary'
+      } ${className} ${
+        primary &&
+        '!bg-primary !text-white hover:!bg-primary hover:!text-white !shadow-sm'
+      }
+      ${
+        danger &&
+        '!bg-red-600 !border-none !text-white hover:!bg-red-600 hover:!text-white !shadow-sm'
+      } ${
+        disabled &&
+        '!bg-secondary !shadow-none hover:!scale-[1] !cursor-default hover:!bg-secondary hover:text-opacity-80 !duration-0 text-white text-opacity-80 !border-none text-center transition-all'
+      }`}
     >
-      {value}
+      {icon ? (
+        <menu className="flex items-center gap-2">
+          <FontAwesomeIcon icon={icon} />
+          <p className="text-[14px]">{children}</p>
+        </menu>
+      ) : (
+        children
+      )}
     </Link>
   );
 };

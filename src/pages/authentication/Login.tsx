@@ -135,24 +135,21 @@ const Login = () => {
           <Button
             styled={false}
             className="!text-[13px]"
-            value="Forgot password?"
-          />
+          >Forgot password?</Button>
         </menu>
         <menu className="flex flex-col items-center gap-3 w-full">
           <Button
             primary
             submit
-            value={loginIsLoading ? <Loader /> : 'Login'}
             className="w-full"
-          />
+          >{loginIsLoading ? <Loader /> : 'Login'}</Button>
           <p className="text-center flex items-center gap-2 text-[15px]">
             Don't have an account?{' '}
             <Button
-              value="Signup here"
               styled={false}
               className="!text-[15px]"
               route="/auth/signup"
-            />
+            >Signup here</Button>
           </p>
         </menu>
       </form>

@@ -15,6 +15,7 @@ import {
 } from '../../state/features/artistSlice';
 import Table from '../../components/table/Table';
 import AddArtist from '../artists/AddArtist';
+import Loader from '@/components/inputs/Loader';
 
 const UserDashboard = () => {
   // STATE VARIABLES
@@ -88,19 +89,16 @@ const UserDashboard = () => {
       cell: ({ row }) => {
         return (
           <menu className="flex items-center gap-3">
-            <Button
-              value={
-                <menu className="flex items-center gap-2 transition-all duration-200 hover:!no-underline">
-                  View more
-                  <FontAwesomeIcon icon={faArrowRight} />
-                </menu>
-              }
-              styled={false}
-              route={`/artists/${row?.original?.id}`}
-            />
+            <Button styled={false} route={`/artists/${row?.original?.id}`}>
+              {' '}
+              <menu className="flex items-center gap-2 transition-all duration-200 hover:!no-underline">
+                View more
+                <FontAwesomeIcon icon={faArrowRight} />
+              </menu>
+            </Button>
           </menu>
         );
-      }
+      },
     },
   ];
 
@@ -114,14 +112,13 @@ const UserDashboard = () => {
                 <h1 className="font-semibold uppercase text-lg">
                   Recent artists
                 </h1>
-                <Button
-                  value={
-                    <menu className="flex items-center gap-2">
-                      View all artists
-                      <FontAwesomeIcon icon={faArrowRight} />
-                    </menu>
-                  }
-                />
+                <Button>
+                  {' '}
+                  <menu className="flex items-center gap-2">
+                    View all artists
+                    <FontAwesomeIcon icon={faArrowRight} />
+                  </menu>
+                </Button>
               </menu>
               <Table
                 data={artistsList?.map(
@@ -146,13 +143,14 @@ const UserDashboard = () => {
             <section className="flex flex-col gap-6 w-full items-center justify-center">
               <menu className="flex items-center gap-6">
                 <Button
-                  value={'Add artist'}
                   onClick={(e) => {
                     e.preventDefault();
                     dispatch(setAddArtistModal(true));
                   }}
-                />
-                <Button value={'Add label'} />
+                >
+                  Add artist
+                </Button>
+                <Button><Loader /></Button>
               </menu>
             </section>
           )}
@@ -160,15 +158,12 @@ const UserDashboard = () => {
         <section className="flex flex-col gap-5 h-[65vh]">
           <menu className="flex w-full items-center gap-3 justify-between">
             <h1 className="font-semibold uppercase text-lg">Streaming data</h1>
-            <Button
-              styled={false}
-              value={
-                <menu className="flex items-center gap-2 hover:gap-3 transition-all duration-200">
-                  Learn more
-                  <FontAwesomeIcon icon={faArrowRight} />
-                </menu>
-              }
-            />
+            <Button styled={false}>
+              <menu className="flex items-center gap-2 hover:gap-3 transition-all duration-200">
+                Learn more
+                <FontAwesomeIcon icon={faArrowRight} />
+              </menu>
+            </Button>
           </menu>
           <figure className="w-full h-[90%] p-2 shadow-md flex flex-col gap-6">
             <DashboardChart data={streamingData} dataKey="month" />
@@ -178,13 +173,15 @@ const UserDashboard = () => {
                   <Button
                     primary={selectedButton === index}
                     key={index}
-                    value={navigation?.label}
                     onClick={(e) => {
                       e.preventDefault();
                       setStreamingData(monthsData());
                       setSelectedButton(index);
                     }}
-                  />
+                  >
+                    {' '}
+                    {navigation?.label}
+                  </Button>
                 );
               })}
             </menu>

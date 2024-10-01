@@ -206,17 +206,16 @@ const AddArtist = () => {
           />
           <menu className="w-full flex items-center gap-3 justify-between">
             <Button
-              value="Cancel"
               onClick={(e) => {
                 e.preventDefault();
                 dispatch(setAddArtistModal(false));
               }}
-            />
-            <Button
-              value={artistIsLoading ? <Loader /> : 'Submit'}
-              primary
-              submit
-            />
+            >
+              Cancel
+            </Button>
+            <Button primary submit>
+              {artistIsLoading ? <Loader /> : 'Submit'}
+            </Button>
           </menu>
         </form>
       </section>

@@ -43,11 +43,13 @@ const Navbar = () => {
         {navbarLinks?.map((link: Navlink, index: number) => {
           return (
             <Button
-              value={link?.label}
               route={link?.path}
               key={index}
               styled={false}
-            />
+              className="hover:underline"
+            >
+              {link?.label}
+            </Button>
           );
         })}
       </nav>
@@ -65,16 +67,13 @@ const Navbar = () => {
             </h1>
           )}
         </Link>
-        <Button
-          className="!py-1"
-          primary
-          value={
-            <menu className="flex items-center gap-3">
-              <FontAwesomeIcon icon={faCirclePlus} />
-              New release
-            </menu>
-          }
-        />
+        <Button className="!py-1" primary>
+          {' '}
+          <menu className="flex items-center gap-3">
+            <FontAwesomeIcon icon={faCirclePlus} />
+            New release
+          </menu>
+        </Button>
       </menu>
     </header>
   );

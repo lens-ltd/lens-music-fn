@@ -244,20 +244,14 @@ const Signup = () => {
           />
         </menu>
         <menu className="flex flex-col items-center gap-3 w-full">
-          <Button
-            primary
-            submit
-            value={signupIsLoading ? <Loader /> : 'Signup'}
-            className="w-full"
-          />
+          <Button primary submit className="w-full">
+            {signupIsLoading ? <Loader /> : 'Signup'}
+          </Button>
           <p className="text-center flex items-center gap-2 text-[15px]">
             Already have an account?{' '}
-            <Button
-              value="Login here"
-              styled={false}
-              className="!text-[15px]"
-              route="/auth/login"
-            />
+            <Button styled={false} className="!text-[15px]" route="/auth/login">
+              Login here
+            </Button>
           </p>
         </menu>
       </form>
