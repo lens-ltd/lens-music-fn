@@ -13,30 +13,10 @@ import {
 import { setUser } from '@/state/features/userSlice';
 import { setToken } from '@/state/features/authSlice';
 
-interface Navlink {
-  label: string;
-  path: string;
-}
-
 const Navbar = () => {
   // STATE VARIABLES
   const { user } = useSelector((state: RootState) => state.user);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  const navbarLinks = [
-    {
-      label: 'Releases',
-      path: '/releases',
-    },
-    {
-      label: 'Artists management',
-      path: '/artists',
-    },
-    {
-      label: 'Lyrics',
-      path: '/lyrics',
-    },
-  ];
 
   const toggleDropdown = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -53,21 +33,7 @@ const Navbar = () => {
           Lens Music
         </Link>
       </h1>
-      <nav className="flex items-center gap-6">
-        <ul className="flex items-center gap-6 list-none">
-          {navbarLinks?.map((link: Navlink, index: number) => (
-            <li key={index}>
-              <Button
-                route={link?.path}
-                styled={false}
-                className="hover:underline"
-              >
-                {link?.label}
-              </Button>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <nav className="flex items-center gap-6"></nav>
 
       <section className="flex items-center gap-6">
         <Button className="!py-1" primary>

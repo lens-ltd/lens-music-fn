@@ -1,62 +1,21 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from '../../components/modals/Modal';
 import { AppDispatch, RootState } from '../../state/store';
-import { setAddArtist, setAddArtistModal } from '../../state/features/artistSlice';
+import { setAddArtistModal } from '../../state/features/artistSlice';
 import { Controller, FieldValues, useForm } from 'react-hook-form';
 import Input from '../../components/inputs/Input';
 import Select from '../../components/inputs/Select';
 import Button from '../../components/inputs/Button';
-import { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { useCreateArtistMutation, useLazyListLabelsQuery } from '../../state/apiSlice';
-import { toast } from 'react-toastify';
-import { setLabelsList } from '../../state/features/labelSlice';
+import { useCreateArtistMutation } from '../../state/apiSlice';
 import Loader from '../../components/inputs/Loader';
 
 const AddArtist = () => {
   // STATE VARIABLES
   const dispatch: AppDispatch = useDispatch();
   const { addArtistModal } = useSelector((state: RootState) => state.artist);
-  const { page, size } = useSelector((state: RootState) => state.pagination);
   const { labelsList } = useSelector((state: RootState) => state.label);
-
-  // INITIALIZE LIST LABELS QUERY
-  const [
-    listLabels,
-    {
-      data: labels,
-      error: labelsError,
-      isLoading: labelsIsLoading,
-      isError: labelsIsError,
-      isSuccess: labelsIsSuccess,
-    },
-  ] = useLazyListLabelsQuery();
-
-  // LIST LABELS
-  useEffect(() => {
-    listLabels({ size, page });
-  }, [listLabels, page, size]);
-
-  // HANDLE LIST LABELS RESPONSE
-  useEffect(() => {
-    if (labelsIsError) {
-      if (labelsError?.status === 500) {
-        toast.error('Could not list labels. Try again later');
-      } else {
-        toast.error(labelsError?.data?.message);
-      }
-    } else if (labelsIsSuccess) {
-      dispatch(setLabelsList(labels?.data?.rows));
-    }
-  }, [
-    labels,
-    labelsError,
-    labelsIsLoading,
-    labelsIsSuccess,
-    labelsIsError,
-    dispatch,
-  ]);
 
   // INITIALIZE CREATE ARTIST MUTATION
   const [
@@ -91,28 +50,6 @@ const AddArtist = () => {
 
     createArtist({ formData });
   };
-
-  // HANDLE CREATE ARTIST RESPONSE
-  useEffect(() => {
-    if (artistIsError) {
-      if (artistError?.status === 500) {
-        toast.error('Could not add artist. Try again later');
-      } else {
-        toast.error(artistError?.data?.message);
-      }
-    } else if (artistIsSuccess) {
-      toast.success('Artist added successfully');
-      dispatch(setAddArtistModal(false));
-      dispatch(setAddArtist(artist?.data));
-    }
-  }, [
-    artist,
-    artistError,
-    artistIsError,
-    artistIsLoading,
-    artistIsSuccess,
-    dispatch,
-  ]);
 
   return (
     <Modal

@@ -5,6 +5,7 @@ import userSlice from './features/userSlice';
 import paginationSlice from './features/paginationSlice';
 import artistSlice from './features/artistSlice';
 import labelSlice from './features/labelSlice';
+import sidebarSlice from './features/sidebarSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     pagination: paginationSlice,
     artist: artistSlice,
     label: labelSlice,
+    sidebar: sidebarSlice,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(apiSlice.middleware);
