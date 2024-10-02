@@ -2,11 +2,11 @@ import { configureStore } from '@reduxjs/toolkit';
 import apiMutationSlice from './api/apiMutationSlice';
 import authSlice from './features/authSlice';
 import userSlice from './features/userSlice';
-import paginationSlice from './features/paginationSlice';
 import artistSlice from './features/artistSlice';
 import labelSlice from './features/labelSlice';
 import sidebarSlice from './features/sidebarSlice';
 import apiQuerySlice from './api/apiQuerySlice';
+import releaseSlice from './features/releaseSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,10 +14,10 @@ export const store = configureStore({
     [apiQuerySlice.reducerPath]: apiQuerySlice.reducer,
     auth: authSlice,
     user: userSlice,
-    pagination: paginationSlice,
     artist: artistSlice,
     label: labelSlice,
     sidebar: sidebarSlice,
+    release: releaseSlice,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(

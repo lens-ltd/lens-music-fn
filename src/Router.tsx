@@ -5,6 +5,8 @@ import UserDashboard from './pages/dashboard/UserDashboard';
 import Home from './pages/dashboard/Home';
 import AuthenticatedRoutes from './outlets/AuthenticatedRoutes';
 import ListArtists from './pages/artists/ListArtists';
+import ListLabels from './pages/labels/ListLabels';
+import ListReleases from './pages/releases/ListReleases';
 
 const Router = () => {
   return (
@@ -25,6 +27,16 @@ const Router = () => {
           {/* ARTIST ROUTES */}
           <Route path="/artists">
             <Route path="" element={<ListArtists />} />
+          </Route>
+
+          {/* LABEL ROUTES */}
+          <Route path="/labels">
+            <Route path="" element={<ListLabels />} />
+          </Route>
+
+          {/* RELEASE ROUTES */}
+          <Route path="/releases">
+            <Route path="" element={<ListReleases />} />
           </Route>
         </Route>
       </Routes>

@@ -84,7 +84,7 @@ export function DataTablePagination<TData>({
           </Select>
         </section>
         <section className="flex w-[100px] items-center justify-center text-sm font-medium">
-          Page {page} of {table.getPageCount() || totalPages}
+          Page {page + 1} of {table.getPageCount() || totalPages}
         </section>
         <section className="flex w-[100px] gap-2 items-center justify-center text-sm font-medium">
           <p className="text-[13px] text-secondary">Go to:</p>

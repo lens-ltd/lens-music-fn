@@ -3,18 +3,18 @@ import CustomTooltip from '@/components/inputs/CustomTooltip';
 import Loader from '@/components/inputs/Loader';
 import Table from '@/components/table/Table';
 import { Heading } from '@/components/text/Headings';
-import { artistColumns } from '@/constants/artist.constants';
+import { useReleaseColumns } from '@/constants/release.constants';
 import UserLayout from '@/containers/UserLayout';
-import { useLazyFetchArtistsQuery } from '@/state/api/apiQuerySlice';
+import { useLazyFetchReleasesQuery } from '@/state/api/apiQuerySlice';
 import {
-  setArtistPage,
-  setArtistSize,
-  setArtistsList,
-  setArtistTotalCount,
-  setArtistTotalPages,
-} from '@/state/features/artistSlice';
+  setReleasePage,
+  setReleaseSize,
+  setReleasesList,
+  setReleaseTotalCount,
+  setReleaseTotalPages,
+} from '@/state/features/releaseSlice';
 import { AppDispatch, RootState } from '@/state/store';
-import { Artist } from '@/types/models/artist.types';
+import { Release } from '@/types/models/release.types';
 import {
   faInfo,
   faPenToSquare,
@@ -28,51 +28,57 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ErrorResponse } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const ListArtists = () => {
+const ListReleases = () => {
   // STATE VARIABLES
   const dispatch: AppDispatch = useDispatch();
-  const { artistsList, page, size, totalCount, totalPages } = useSelector(
-    (state: RootState) => state.artist
+  const { releasesList, page, size, totalCount, totalPages } = useSelector(
+    (state: RootState) => state.release
   );
 
-  // INITIALIZE FETCH ARTISTS QUERY
+  // INITIALIZE FETCH RELEASES QUERY
   const [
-    fetchArtists,
+    fetchReleases,
     {
-      data: artistsData,
-      error: artistsError,
-      isFetching: artistsIsFetching,
-      isSuccess: artistsIsSuccess,
-      isError: artistsIsError,
+      data: releasesData,
+      isFetching: releasesIsFetching,
+      isSuccess: releasesIsSuccess,
+      isError: releasesIsError,
+      error: releasesError,
     },
-  ] = useLazyFetchArtistsQuery();
+  ] = useLazyFetchReleasesQuery();
 
-  // FETCH ARTISTS
+  // FETCH RELEASES
   useEffect(() => {
-    fetchArtists({ size, page });
-  }, [fetchArtists, page, size]);
+    fetchReleases({ size, page });
+  }, [fetchReleases, page, size]);
 
-  // HANDLE FETCH ARTISTS RESPONSE
+  // HANDLE FETCH RELEASES RESPONSE
   useEffect(() => {
-    if (artistsIsError) {
+    if (releasesIsError) {
       const errorResponse =
-        (artistsError as ErrorResponse)?.data?.message ||
-        'An error occurred while fetching artists';
+        (releasesError as ErrorResponse)?.data?.message ||
+        'An error occurred while fetching releases';
       toast.error(errorResponse);
-    } else if (artistsIsSuccess) {
-      dispatch(setArtistsList(artistsData?.data?.rows));
-      dispatch(setArtistTotalCount(artistsData?.data?.totalElements));
-      dispatch(setArtistTotalPages(artistsData?.data?.totalPages));
+    } else if (releasesIsSuccess) {
+      dispatch(setReleasesList(releasesData?.data?.rows));
+      dispatch(setReleaseTotalCount(releasesData?.data?.totalCount));
+      dispatch(setReleaseTotalPages(releasesData?.data?.totalPages));
     }
-  }, [artistsData, artistsError, artistsIsError, artistsIsSuccess, dispatch]);
+  }, [
+    releasesIsError,
+    releasesIsSuccess,
+    releasesData,
+    releasesError,
+    dispatch,
+  ]);
 
-  // ARTISTS EXTENDED COLUMNS
-  const artistExtendedColumns = [
-    ...artistColumns,
+  // RELEASE EXTENDED COLUMNS
+  const releaseExtendedColumns = [
+    ...useReleaseColumns(),
     {
       header: 'Actions',
       accessorKey: 'actions',
-      cell: ({ row }: { row: Row<Artist> }) => {
+      cell: ({ row }: { row: Row<Release> }) => {
         return (
           <menu className="w-full flex items-center gap-3">
             <CustomTooltip label="Click to view details">
@@ -115,29 +121,29 @@ const ListArtists = () => {
     <UserLayout>
       <main className="w-full flex flex-col gap-4">
         <nav className="w-full flex items-center gap-3 justify-between">
-          <Heading>Artists</Heading>
+          <Heading>Labels</Heading>
           <Button>
             <menu className="w-full flex items-center gap-2">
               <FontAwesomeIcon icon={faPlus} />
-              <p>Add new artist</p>
+              <p>Add new release</p>
             </menu>
           </Button>
         </nav>
         <section className="w-full flex flex-col gap-2">
-          {artistsIsFetching ? (
-            <figure className="w-full flex items-center justify-center min-h-[40vh]">
+          {releasesIsFetching ? (
+            <figure className="w-full min-h-[30vh] items-center justify-center">
               <Loader primary />
             </figure>
           ) : (
             <Table
-              data={artistsList}
-              columns={artistExtendedColumns}
+              columns={releaseExtendedColumns}
+              data={releasesList}
               page={page}
               size={size}
-              setPage={setArtistPage}
-              setSize={setArtistSize}
               totalCount={totalCount}
               totalPages={totalPages}
+              setPage={setReleasePage}
+              setSize={setReleaseSize}
             />
           )}
         </section>
@@ -146,4 +152,4 @@ const ListArtists = () => {
   );
 };
 
-export default ListArtists;
+export default ListReleases;

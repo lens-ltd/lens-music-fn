@@ -3,18 +3,18 @@ import CustomTooltip from '@/components/inputs/CustomTooltip';
 import Loader from '@/components/inputs/Loader';
 import Table from '@/components/table/Table';
 import { Heading } from '@/components/text/Headings';
-import { artistColumns } from '@/constants/artist.constants';
+import { labelColumns } from '@/constants/label.constants';
 import UserLayout from '@/containers/UserLayout';
-import { useLazyFetchArtistsQuery } from '@/state/api/apiQuerySlice';
+import { useLazyFetchLabelsQuery } from '@/state/api/apiQuerySlice';
 import {
-  setArtistPage,
-  setArtistSize,
-  setArtistsList,
-  setArtistTotalCount,
-  setArtistTotalPages,
-} from '@/state/features/artistSlice';
+  setLabelPage,
+  setLabelSize,
+  setLabelsList,
+  setLabelTotalCount,
+  setLabelTotalPages,
+} from '@/state/features/labelSlice';
 import { AppDispatch, RootState } from '@/state/store';
-import { Artist } from '@/types/models/artist.types';
+import { Label } from '@/types/models/label.types';
 import {
   faInfo,
   faPenToSquare,
@@ -28,51 +28,52 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ErrorResponse } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const ListArtists = () => {
+const ListLabels = () => {
   // STATE VARIABLES
   const dispatch: AppDispatch = useDispatch();
-  const { artistsList, page, size, totalCount, totalPages } = useSelector(
-    (state: RootState) => state.artist
+  const { labelsList, page, size, totalCount, totalPages } = useSelector(
+    (state: RootState) => state.label
   );
 
-  // INITIALIZE FETCH ARTISTS QUERY
+  // INITIALIZE FETCH LABELS QUERY
   const [
-    fetchArtists,
+    fetchLabels,
     {
-      data: artistsData,
-      error: artistsError,
-      isFetching: artistsIsFetching,
-      isSuccess: artistsIsSuccess,
-      isError: artistsIsError,
+      data: labelsData,
+      error: labelsError,
+      isFetching: labelsIsFetching,
+      isSuccess: labelsIsSuccess,
+      isError: labelsIsError,
     },
-  ] = useLazyFetchArtistsQuery();
+  ] = useLazyFetchLabelsQuery();
 
-  // FETCH ARTISTS
+  // FETCH LABELS
   useEffect(() => {
-    fetchArtists({ size, page });
-  }, [fetchArtists, page, size]);
+    fetchLabels({ size, page });
+  }, [fetchLabels, page, size]);
 
-  // HANDLE FETCH ARTISTS RESPONSE
+  // HANDLE FETCH LABELS RESPONSE
   useEffect(() => {
-    if (artistsIsError) {
+    if (labelsIsError) {
       const errorResponse =
-        (artistsError as ErrorResponse)?.data?.message ||
-        'An error occurred while fetching artists';
+        (labelsError as ErrorResponse)?.data?.message ||
+        'An error occurred while fetching labels';
       toast.error(errorResponse);
-    } else if (artistsIsSuccess) {
-      dispatch(setArtistsList(artistsData?.data?.rows));
-      dispatch(setArtistTotalCount(artistsData?.data?.totalElements));
-      dispatch(setArtistTotalPages(artistsData?.data?.totalPages));
     }
-  }, [artistsData, artistsError, artistsIsError, artistsIsSuccess, dispatch]);
+    if (labelsIsSuccess) {
+      dispatch(setLabelsList(labelsData?.data?.rows));
+      dispatch(setLabelTotalCount(labelsData?.data?.totalCount));
+      dispatch(setLabelTotalPages(labelsData?.data?.totalPages));
+    }
+  }, [labelsIsError, labelsIsSuccess, labelsError, labelsData, dispatch]);
 
-  // ARTISTS EXTENDED COLUMNS
-  const artistExtendedColumns = [
-    ...artistColumns,
+  // LABEL EXTENDED COLUMNS
+  const labelExtendedColumns = [
+    ...labelColumns,
     {
       header: 'Actions',
       accessorKey: 'actions',
-      cell: ({ row }: { row: Row<Artist> }) => {
+      cell: ({ row }: { row: Row<Label> }) => {
         return (
           <menu className="w-full flex items-center gap-3">
             <CustomTooltip label="Click to view details">
@@ -115,29 +116,29 @@ const ListArtists = () => {
     <UserLayout>
       <main className="w-full flex flex-col gap-4">
         <nav className="w-full flex items-center gap-3 justify-between">
-          <Heading>Artists</Heading>
+          <Heading>Labels</Heading>
           <Button>
             <menu className="w-full flex items-center gap-2">
               <FontAwesomeIcon icon={faPlus} />
-              <p>Add new artist</p>
+              <p>Add new label</p>
             </menu>
           </Button>
         </nav>
         <section className="w-full flex flex-col gap-2">
-          {artistsIsFetching ? (
-            <figure className="w-full flex items-center justify-center min-h-[40vh]">
+          {labelsIsFetching ? (
+            <figure className="w-full flex items-center justify-center min-h-[30vh]">
               <Loader primary />
             </figure>
           ) : (
             <Table
-              data={artistsList}
-              columns={artistExtendedColumns}
+              columns={labelExtendedColumns}
+              data={labelsList}
               page={page}
               size={size}
-              setPage={setArtistPage}
-              setSize={setArtistSize}
               totalCount={totalCount}
               totalPages={totalPages}
+              setPage={setLabelPage}
+              setSize={setLabelSize}
             />
           )}
         </section>
@@ -146,4 +147,4 @@ const ListArtists = () => {
   );
 };
 
-export default ListArtists;
+export default ListLabels;

@@ -7,7 +7,7 @@ export interface Label extends AbstractEntity {
   email?: string;
   description?: string;
   userId: string;
-  country: string[];
+  country: string;
   user: User;
   releases: Release[];
 }

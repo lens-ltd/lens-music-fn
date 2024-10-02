@@ -25,6 +25,11 @@ export const apiQuerySlice = createApi({
       fetchLabels: builder.query({
         query: ({ size, page }) => `/labels?size=${size}&page=${page}`,
       }),
+
+      // FETCH RELEASES
+      fetchReleases: builder.query({
+        query: ({ size, page }) => `/releases?size=${size}&page=${page}`,
+      }),
     };
   },
 });
@@ -32,5 +37,6 @@ export const apiQuerySlice = createApi({
 export const {
   useLazyFetchArtistsQuery,
   useLazyFetchLabelsQuery,
+  useLazyFetchReleasesQuery,
 } = apiQuerySlice;
 export default apiQuerySlice;
