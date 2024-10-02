@@ -1,10 +1,11 @@
 import store from 'store';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { LOCAL_API_URL } from '@/constants/environments.constants';
 
-export const apiSlice = createApi({
-  reducerPath: 'api',
+export const apiMutationSlice = createApi({
+  reducerPath: 'apiMutation',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:8080/api',
+    baseUrl: LOCAL_API_URL,
     prepareHeaders: (headers) => {
       const token = store.get('token');
       if (token) {
@@ -70,5 +71,5 @@ export const {
   useLazyListArtistsQuery,
   useLazyListLabelsQuery,
   useCreateArtistMutation,
-} = apiSlice;
-export default apiSlice;
+} = apiMutationSlice;
+export default apiMutationSlice;

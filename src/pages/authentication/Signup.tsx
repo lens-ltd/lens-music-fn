@@ -5,7 +5,7 @@ import Input from '../../components/inputs/Input';
 import { validateInputs } from '../../utils/validations.helper';
 import { useEffect, useState } from 'react';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
-import { useSignupMutation } from '../../state/apiSlice';
+import { useSignupMutation } from '../../state/api/apiMutationSlice';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../state/store';

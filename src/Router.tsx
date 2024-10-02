@@ -4,6 +4,7 @@ import Signup from './pages/authentication/Signup';
 import UserDashboard from './pages/dashboard/UserDashboard';
 import Home from './pages/dashboard/Home';
 import AuthenticatedRoutes from './outlets/AuthenticatedRoutes';
+import ListArtists from './pages/artists/ListArtists';
 
 const Router = () => {
   return (
@@ -20,6 +21,11 @@ const Router = () => {
         <Route element={<AuthenticatedRoutes />}>
           {/* DASHBOARD */}
           <Route path="/dashboard" element={<UserDashboard />} />
+
+          {/* ARTIST ROUTES */}
+          <Route path="/artists">
+            <Route path="" element={<ListArtists />} />
+          </Route>
         </Route>
       </Routes>
     </>

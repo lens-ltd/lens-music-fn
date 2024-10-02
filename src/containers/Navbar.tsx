@@ -24,7 +24,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="flex items-center gap-3 justify-between p-6 w-[95%] mx-auto">
+    <header className="flex h-[10vh] items-center gap-3 justify-between p-6 w-full px-8 mx-auto bg-background">
       <h1>
         <Link
           to={'/dashboard'}

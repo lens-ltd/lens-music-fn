@@ -1,15 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit';
-import apiSlice from './apiSlice';
+import apiMutationSlice from './api/apiMutationSlice';
 import authSlice from './features/authSlice';
 import userSlice from './features/userSlice';
 import paginationSlice from './features/paginationSlice';
 import artistSlice from './features/artistSlice';
 import labelSlice from './features/labelSlice';
 import sidebarSlice from './features/sidebarSlice';
+import apiQuerySlice from './api/apiQuerySlice';
 
 export const store = configureStore({
   reducer: {
-    [apiSlice.reducerPath]: apiSlice.reducer,
+    [apiMutationSlice.reducerPath]: apiMutationSlice.reducer,
+    [apiQuerySlice.reducerPath]: apiQuerySlice.reducer,
     auth: authSlice,
     user: userSlice,
     pagination: paginationSlice,
@@ -18,7 +20,10 @@ export const store = configureStore({
     sidebar: sidebarSlice,
   },
   middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(apiSlice.middleware);
+    return getDefaultMiddleware().concat(
+      apiMutationSlice.middleware,
+      apiQuerySlice.middleware
+    );
   },
 });
 

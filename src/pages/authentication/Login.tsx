@@ -4,7 +4,7 @@ import Input from '../../components/inputs/Input';
 import Button from '../../components/inputs/Button';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import { useEffect, useState } from 'react';
-import { useLoginMutation } from '../../state/apiSlice';
+import { useLoginMutation } from '../../state/api/apiMutationSlice';
 import { toast } from 'react-toastify';
 import Loader from '../../components/inputs/Loader';
 import { AppDispatch } from '../../state/store';

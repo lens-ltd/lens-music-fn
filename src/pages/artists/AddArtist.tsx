@@ -8,7 +8,7 @@ import Select from '../../components/inputs/Select';
 import Button from '../../components/inputs/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { useCreateArtistMutation } from '../../state/apiSlice';
+import { useCreateArtistMutation } from '../../state/api/apiMutationSlice';
 import Loader from '../../components/inputs/Loader';
 
 const AddArtist = () => {

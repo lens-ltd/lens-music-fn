@@ -22,7 +22,7 @@ interface DataTablePaginationProps<TData> {
   table: Table<TData>;
   page?: number;
   size?: number;
-  totalElements?: number;
+  totalCount?: number;
   totalPages?: number;
   setPage?: (page: number) => UnknownAction;
   setSize?: (size: number) => UnknownAction;
@@ -32,7 +32,7 @@ export function DataTablePagination<TData>({
   table,
   page = 1,
   size = 10,
-  totalElements = 0,
+  totalCount = 0,
   totalPages = 1,
   setPage,
   setSize,
@@ -49,8 +49,8 @@ export function DataTablePagination<TData>({
             {table.getFilteredRowModel().rows.length} row(s) selected.
           </p>
         )}
-        {totalElements > 0 && (
-          <p className="text-[12px] mr-4">Total records: {totalElements}</p>
+        {totalCount > 0 && (
+          <p className="text-[12px] mr-4">Total records: {totalCount}</p>
         )}
       </article>
       <menu className="flex items-center space-x-6 lg:space-x-8">

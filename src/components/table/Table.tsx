@@ -36,7 +36,7 @@ interface DataTableProps<TData, TValue> {
   showExport?: boolean;
   page?: number;
   size?: number;
-  totalElements?: number;
+  totalCount?: number;
   totalPages?: number;
   setPage?: (page: number) => UnknownAction;
   setSize?: (size: number) => UnknownAction;
@@ -49,7 +49,7 @@ export default function Table<TData, TValue>({
   showPagination = true,
   page = 1,
   size = 10,
-  totalElements,
+  totalCount,
   totalPages,
   setPage,
   setSize,
@@ -68,7 +68,7 @@ export default function Table<TData, TValue>({
       rowSelection,
       columnFilters,
       pagination: {
-        pageIndex: page - 1,
+        pageIndex: page,
         pageSize: size,
       },
     },
@@ -87,7 +87,7 @@ export default function Table<TData, TValue>({
 
   return (
     <section className="space-y-4 w-full my-2">
-      <table className="rounded-md border">
+      <table className="rounded-md border w-full">
         <DataTable>
           <TableHeader className="px-0">
             {table.getHeaderGroups().map((headerGroup) => (
@@ -184,7 +184,7 @@ export default function Table<TData, TValue>({
         <DataTablePagination
           page={page}
           size={size}
-          totalElements={totalElements}
+          totalCount={totalCount}
           totalPages={totalPages}
           table={table}
           setPage={setPage}
