@@ -2,18 +2,20 @@ import { Routes, Route } from 'react-router-dom';
 import Login from './pages/authentication/Login';
 import Signup from './pages/authentication/Signup';
 import UserDashboard from './pages/dashboard/UserDashboard';
-import Home from './pages/dashboard/Home';
 import AuthenticatedRoutes from './outlets/AuthenticatedRoutes';
 import ListArtists from './pages/artists/ListArtists';
 import ListLabels from './pages/labels/ListLabels';
 import ListReleases from './pages/releases/ListReleases';
+import CreateRelase from './pages/releases/CreateRelase';
+import LandingPage from './pages/landing/LandingPage';
 
 const Router = () => {
   return (
     <>
       <Routes>
-        {/* HOME */}
-        <Route path="/" element={<Home />} />
+        {/* REDIRECT */}
+        {/* LANDING PAGE */}
+        <Route path="/" element={<LandingPage />} />
 
         {/* AUTHENTICATION */}
         <Route path="/auth/login" element={<Login />} />
@@ -40,6 +42,7 @@ const Router = () => {
           </Route>
         </Route>
       </Routes>
+      <CreateRelase />
     </>
   );
 };

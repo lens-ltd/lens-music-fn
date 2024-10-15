@@ -74,7 +74,7 @@ export function DataTablePagination<TData>({
                   <SelectItem
                     value={size === pageSize ? `${size}` : `${pageSize}`}
                     key={pageSize}
-                    className="cursor-pointer"
+                    className="cursor-pointer hover:bg-background"
                   >
                     {pageSize}
                   </SelectItem>

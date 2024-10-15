@@ -51,9 +51,7 @@ const DatePicker = ({
           {value ? (
             selectionType === 'recurringDate' ? (
               moment(value).format('MMMM DD')
-            ) : selectionType === 'date' ||
-              selectionType === 'month' ||
-              selectionType === 'year' ? (
+            ) : !['date', 'month', 'year'].includes(String(selectionType)) ? (
               format(value, 'PPP')
             ) : (
               moment(value).format('MMMM DD')

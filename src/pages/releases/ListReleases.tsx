@@ -121,7 +121,7 @@ const ListReleases = () => {
     <UserLayout>
       <main className="w-full flex flex-col gap-4">
         <nav className="w-full flex items-center gap-3 justify-between">
-          <Heading>Labels</Heading>
+          <Heading>Releases</Heading>
           <Button>
             <menu className="w-full flex items-center gap-2">
               <FontAwesomeIcon icon={faPlus} />
@@ -131,7 +131,7 @@ const ListReleases = () => {
         </nav>
         <section className="w-full flex flex-col gap-2">
           {releasesIsFetching ? (
-            <figure className="w-full min-h-[30vh] items-center justify-center">
+            <figure className="w-full min-h-[60vh] items-center justify-center">
               <Loader primary />
             </figure>
           ) : (

@@ -12,9 +12,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { setUser } from '@/state/features/userSlice';
 import { setToken } from '@/state/features/authSlice';
+import { setCreateReleaseModal } from '@/state/features/releaseSlice';
 
 const Navbar = () => {
   // STATE VARIABLES
+  const dispatch: AppDispatch = useDispatch();
   const { user } = useSelector((state: RootState) => state.user);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -36,7 +38,10 @@ const Navbar = () => {
       <nav className="flex items-center gap-6"></nav>
 
       <section className="flex items-center gap-6">
-        <Button className="!py-1" primary>
+        <Button className="!py-1" primary onClick={(e) => {
+          e.preventDefault();
+          dispatch(setCreateReleaseModal(true));
+        }}>
           <span className="flex items-center gap-3">
             <FontAwesomeIcon icon={faCirclePlus} />
             New release

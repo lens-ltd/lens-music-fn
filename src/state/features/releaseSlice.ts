@@ -9,6 +9,7 @@ const initialState: {
   size: number;
   totalCount: number;
   totalPages: number;
+  createReleaseModal: boolean;
 } = {
   releasesList: [],
   release: undefined,
@@ -17,6 +18,7 @@ const initialState: {
   size: 10,
   totalCount: 0,
   totalPages: 0,
+  createReleaseModal: false,
 };
 
 const releaseSlice = createSlice({
@@ -44,6 +46,9 @@ const releaseSlice = createSlice({
     setReleaseTotalPages: (state, action) => {
       state.totalPages = action.payload;
     },
+    setCreateReleaseModal: (state, action) => {
+      state.createReleaseModal = action.payload;
+    },
   },
 });
 
@@ -55,6 +60,7 @@ export const {
   setReleaseSize,
   setReleaseTotalCount,
   setReleaseTotalPages,
+  setCreateReleaseModal,
 } = releaseSlice.actions;
 
 export default releaseSlice.reducer;
