@@ -34,7 +34,7 @@ const Navbar = ({ scrolled }: { scrolled: boolean }) => {
         <menu className="flex justify-between items-center gap-5">
           {navigationLinks.map((link, index) => (
             <>
-              {index > 0 && <span className="text-white mx-2">•</span>}
+              {index > 0 && <span key={index} className="text-white mx-2">•</span>}
               <Link key={index} to={link.route} className="hover:underline">
                 {link.label}
               </Link>
@@ -42,7 +42,7 @@ const Navbar = ({ scrolled }: { scrolled: boolean }) => {
           ))}
         </menu>
         <menu className="w-fit flex items-center gap-3">
-          <Link to={`/auth/login`}>Sign in</Link>
+          <Link to={`/auth/login`} className="hover:underline">Sign in</Link>
           <Button
             route={`/auth/signup`}
             className={`${
@@ -96,10 +96,11 @@ const LandingPage = () => {
             <FontAwesomeIcon icon={faLocationArrow} className="ml-2" />
           </Button>
         </article>
-        <footer className="absolute bottom-12 max-w-[50vw] right-0 bg-transparent flex items-end justify-end p-8">
+        <footer className="absolute bottom-12 max-w-[50vw] right-0 bg-transparent flex flex-col gap-4 items-end justify-end p-8">
           <h2 className="text-white text-4xl text-end md:text-6xl lg:text-7xl font-bold">
             The future of music distribution
           </h2>
+          <p className="text-white text-lg">Working for you</p>
         </footer>
       </section>
     </main>

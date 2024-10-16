@@ -30,7 +30,7 @@ const Navbar = () => {
       <h1>
         <Link
           to={'/dashboard'}
-          className="text-xl font-bold transition-all ease-in-out hover:scale-102"
+          className="text-xl font-bold transition-all ease-in-out hover:scale-102 text-primary"
         >
           Lens Music
         </Link>
@@ -61,7 +61,7 @@ const Navbar = () => {
                 alt="User avatar"
               />
             ) : (
-              <span className="text-white text-lg font-bold text-center w-full h-full flex items-center justify-center bg-gray-800">
+              <span className="text-white text-lg font-bold text-center w-full h-full flex items-center justify-center bg-primary">
                 {user?.name?.charAt(0)}
               </span>
             )}

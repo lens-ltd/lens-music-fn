@@ -7,6 +7,7 @@ import labelSlice from './features/labelSlice';
 import sidebarSlice from './features/sidebarSlice';
 import apiQuerySlice from './api/apiQuerySlice';
 import releaseSlice from './features/releaseSlice';
+import lyricSlice from './features/lyricSlice';
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     label: labelSlice,
     sidebar: sidebarSlice,
     release: releaseSlice,
+    lyric: lyricSlice,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(
