@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import landingHeroImage from '/landing/landing-hero.jpeg';
+import landingHeroImage from '/landing/landing-hero.png';
+import lensMusicLogo from '/logo/lens-music-logo.png'
 import { Link } from 'react-router-dom';
 import Button from '@/components/inputs/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -29,7 +30,7 @@ const Navbar = ({ scrolled }: { scrolled: boolean }) => {
     >
       <nav className="container w-[90%] flex items-center justify-between mx-auto px-4 py-4">
         <Link to={`#`}>
-          <h1 className="text-xl font-bold">Lens Music</h1>
+          <img src={lensMusicLogo} alt="Lens Music Logo" className="w-12" />
         </Link>
         <menu className="flex justify-between items-center gap-5">
           {navigationLinks.map((link, index) => (

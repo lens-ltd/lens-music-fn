@@ -2,9 +2,10 @@ import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import store from 'store';
 import UserLayout from '@/containers/UserLayout';
 import { Heading } from '@/components/text/Headings';
-import { Button } from '@/components/ui/button';
+import { Button as UIButton } from '@/components/ui/button';
 import Input from '@/components/inputs/Input';
 import { Link } from 'react-router-dom';
+import Button from '@/components/inputs/Button';
 
 const SyncLyrics = () => {
   // STATE VARIABLES
@@ -121,13 +122,13 @@ const SyncLyrics = () => {
               <Input type="file" accept="audio/*" onChange={handleFileUpload} />
             </li>
             <li>
-              <Button
+              <UIButton
                 variant={`outline`}
                 className="text-[13px] p-1 px-4"
                 onClick={handlePlay}
               >
                 {isPlaying ? 'Pause' : 'Play'}
-              </Button>
+              </UIButton>
             </li>
           </ul>
         </nav>
@@ -135,13 +136,12 @@ const SyncLyrics = () => {
           <h1 className="text-2xl font-bold">{lyricsData.title}</h1>
           <article
             ref={lyricsRef}
-            className="text-md text-gray-500 text-left w-full max-h-[70vh] overflow-y-auto p-4"
+            className="text-md flex flex-col gap-1 text-gray-500 text-left w-full max-h-[70vh] overflow-y-auto p-4"
           >
             {splitLyrics.map((line: string, index: number) => {
               const lyricLine = syncedLyrics.find(
                 (item) => item.index === index
               );
-              console.log(lyricLine);
               return (
                 <section
                   key={index}
@@ -172,28 +172,38 @@ const SyncLyrics = () => {
                       {line}
                     </p>
                   </Link>
-                  <Button
+                  <UIButton
                     variant="outline"
                     size="sm"
                     onClick={() => handleSync(line, index)}
                     disabled={!audio || !isPlaying}
                   >
                     Sync
-                  </Button>
+                  </UIButton>
                 </section>
               );
             })}
+            <menu
+              className="w-full flex items-center justify-end mt-5"
+              onClick={(e) => {
+                e.preventDefault();
+                console.log(
+                  syncedLyrics?.map((item) => {
+                    return {
+                      time: item?.time,
+                      text: item?.line,
+                    };
+                  })
+                );
+              }}
+            >
+              <Button primary className="self-end">
+                Save
+              </Button>
+            </menu>
           </article>
         </section>
         {audio && <audio ref={audioRef} src={audio} />}
-        {/* <section className="mt-8 w-[70%] mx-auto">
-          <h2 className="text-xl font-bold mb-4">Synced Lyrics</h2>
-          {syncedLyrics.map((item, index) => (
-            <p key={index} className="text-black">{`${item.time.toFixed(2)}s: ${
-              item.line
-            }`}</p>
-          ))}
-        </section> */}
       </main>
     </UserLayout>
   );
